@@ -665,8 +665,10 @@ C
       ENDIF
       END
 
-      FUNCTION SigNAs(sN)
-      REAL*8   SigNAs,sN
+      FUNCTION SigNAs(sN) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) ::   sN
+      REAL*8   SigNAs
       INCLUDE 'npmain.inc'
       INCLUDE 'npmath.fun'
       REAL*8   SigNAm
@@ -676,8 +678,11 @@ C
       SigNAs = DINTAD2(SigNAm,KinMuM,KinMuX,-SigEps,10)
       END
 
-      FUNCTION SigNAm(mu)
-      REAL*8   SigNAm,mu
+      
+      FUNCTION SigNAm(mu) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: mu
+      REAL*8   SigNAm
       INCLUDE 'npmain.inc'
       REAL*8   SigNAtt
       EXTERNAL SigNAtt
@@ -686,7 +691,8 @@ C
       SigNAm = SigNAtt()/(2*KinMN*KinE*KinNu)
       END
 
-      FUNCTION SigNAtt()
+      FUNCTION SigNAtt() BIND(C)
+      USE ISO_C_BINDING
       REAL*8   SigNAtt
       INCLUDE 'npmain.inc'
       INCLUDE 'nppion.inc'
@@ -701,9 +707,11 @@ C
       ENDIF
       SigNAtt = DINTAD3(SigNAt,tm,KinTX,-SigEps,10)
       END
-
-      FUNCTION SigNAt(t)
-      REAL*8   SigNAt,t
+      
+      FUNCTION SigNAt(t) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: t
+      REAL*8   SigNAt
       INCLUDE 'npmain.inc'
       REAL*8   SigNAsmt
       EXTERNAL SigNAsmt
@@ -712,8 +720,10 @@ C
 C
 C --- SigNAnu - differential cross section d sigma / d nu
 C
-      FUNCTION SigNAnu(E,nu)
-      REAL*8   SigNAnu,E,nu
+      FUNCTION SigNAnu(E,nu) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E, nu
+      REAL*8   SigNAnu
       INCLUDE 'npmain.inc'
       INCLUDE 'npmath.fun'
       REAL*8   SigNAnQ
@@ -731,8 +741,10 @@ C
       SigNAnu = DINTAD2(SigNAnQ,KinQ2M,KinQ2X,-SigEps,10)
       END
 
-      FUNCTION SigNAnQ(Q2)
-      REAL*8   SigNAnQ,Q2
+      FUNCTION SigNAnQ(Q2) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: Q2
+      REAL*8   SigNAnQ
       INCLUDE 'npmain.inc'
       INCLUDE 'nppion.inc'
       INCLUDE 'npmath.fun'
@@ -747,8 +759,10 @@ C
 C
 C --- SigNAQ2 - differential cross section d sigma / d Q^2
 C
-      FUNCTION SigNAQ2(E,Q2)
-      REAL*8   SigNAQ2,E,Q2
+      FUNCTION SigNAQ2(E,Q2) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E, Q2
+      REAL*8   SigNAQ2
       INCLUDE 'npmain.inc'
       INCLUDE 'npmath.fun'
       REAL*8   SigNAQn
@@ -766,8 +780,10 @@ C
       SigNAQ2 = DINTAD2(SigNAQn,KinNuM,KinNuX,-SigEps,10)
       END
 
-      FUNCTION SigNAQn(nu)
-      REAL*8   SigNAQn,nu
+      FUNCTION SigNAQn(nu) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: nu
+      REAL*8   SigNAQn
       INCLUDE 'npmain.inc'
       INCLUDE 'nppion.inc'
       INCLUDE 'npmath.fun'
@@ -782,8 +798,10 @@ C
 C
 C --- SigNAx - differential cross section d sigma / d x
 C
-      FUNCTION SigNAx(E,x)
-      REAL*8   SigNAx,E,x
+      FUNCTION SigNAx(E,x) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E, x
+      REAL*8   SigNAx
       INCLUDE 'npmain.inc'
       INCLUDE 'npmath.fun'
       REAL*8   SigNAxx
@@ -801,8 +819,10 @@ C
       SigNAx = DINTAD2(SigNAxx,KinYM,KinYX,-SigEps,10)
       END
 
-      FUNCTION SigNAxx(y)
-      REAL*8   SigNAxx,y
+      FUNCTION SigNAxx(y) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: y
+      REAL*8   SigNAxx
       INCLUDE 'npmain.inc'
       INCLUDE 'nppion.inc'
       INCLUDE 'npmath.fun'
@@ -817,8 +837,10 @@ C
 C
 C --- SigNAy - differential cross section d sigma / d y
 C
-      FUNCTION SigNAy(E,y)
-      REAL*8   SigNAy,E,y
+      FUNCTION SigNAy(E,y) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E, y
+      REAL*8   SigNAy
       INCLUDE 'npmain.inc'
       INCLUDE 'npmath.fun'
       REAL*8   SigNAyy
@@ -836,8 +858,10 @@ C
       SigNAy = DINTAD2(SigNAyy,KinXM,KinXX,-SigEps,10)
       END
 
-      FUNCTION SigNAyy(x)
-      REAL*8   SigNAyy,x
+      FUNCTION SigNAyy(x) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: x
+      REAL*8   SigNAyy
       INCLUDE 'npmain.inc'
       INCLUDE 'nppion.inc'
       INCLUDE 'npmath.fun'
@@ -852,8 +876,10 @@ C
 C
 C --- SigNAxy - differential cross section d sigma / dx dy
 C
-      FUNCTION SigNAxy(E,x,y)
-      REAL*8   SigNAxy,E,x,y
+      FUNCTION SigNAxy(E,x,y) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E, x, y
+      REAL*8   SigNAxy
       INCLUDE 'npmain.inc'
       INCLUDE 'npmath.fun'
       REAL*8   SigNAtt
@@ -890,7 +916,9 @@ C     E      - neutrino energy
 C     x,y,t  - kinematic variables
 C
       FUNCTION SigNAxyt(E,x,y,t)
-      REAL*8   SigNAxyt,E,x,y,t
+
+      REAL*8   E, x, y, t
+      REAL*8   SigNAxyt
       REAL*8   SigNAsmt
       INCLUDE 'npmain.inc'
       INCLUDE 'npmath.inc'
@@ -924,8 +952,7 @@ C
 
       CALL SETTMX
 
-      ENTRY    SigNAsmt(E,x,y,t)
-
+      ENTRY SigNAsmt(E,x,y,t)
       KinT = t
 
       IF     (KinT .LT. KinTM) THEN
@@ -967,8 +994,10 @@ C
       SigNAxyt = SigNAxyt/SigUnit
       END
 
-      FUNCTION SigNAnQt(E,nu,Q2,t)
-      REAL*8   SigNAnQt,E,nu,Q2,t
+      FUNCTION SigNAnQt(E,nu,Q2,t) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E, nu, Q2, t
+      REAL*8   SigNAnQt
       INCLUDE 'npmain.inc'
       REAL*8   SigNAxyt,x,y
       EXTERNAL SigNAxyt
@@ -979,8 +1008,9 @@ C
 C
 C --- Coherent
 C
-      SUBROUTINE PhiCoh(PhiC)
-      REAL*8            PhiC
+      SUBROUTINE PhiCoh(PhiC) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), INTENT(OUT) :: PhiC
       INCLUDE   'npmain.inc'
       INCLUDE   'npmath.inc'
       INCLUDE   'npmath.fun'
@@ -1017,20 +1047,24 @@ C
       PhiC = (2*Pi*ABS(Phi))**2
       END
 
-      FUNCTION   PhiCohB(b)
+      FUNCTION   PhiCohB(b) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: b
       COMPLEX*16 PhiCohB
-      REAL*8             b
       INCLUDE   'npmain.inc'
       INCLUDE   'npmath.fun'
       COMPLEX*16     PhiB(RHORNUM)
       COMMON /PhiCB/ PhiB
       PhiCohB = b*DFUNJ0(b*KinKT)*CINTER(RHORNUM,RhoRdat,PhiB,b)
       END
+
 C
 C --- Incoherent
 C
-      SUBROUTINE PhiInc(PhiI)
-      REAL*8            PhiI
+      SUBROUTINE PhiInc(PhiI) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), INTENT(OUT) :: PhiI
+
       INCLUDE   'npmain.inc'
       INCLUDE   'npmath.inc'
       INCLUDE   'npmath.fun'
