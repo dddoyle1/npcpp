@@ -16,7 +16,8 @@ C
 C --- Output File and printout Level
 C
       SUBROUTINE SETOUT(F,L)
-      INTEGER           F,L
+      INTEGER :: F
+      INTEGER :: L
       INCLUDE   'npmain.inc'
       OutFile = F
       IF (F .GT. 0) THEN
@@ -95,8 +96,9 @@ C     P - Pion    charge
 C     Z - nucleus charge
 C     A - nucleus weight
 C
-      SUBROUTINE SETREAC(L,P,Z,A)
-      INTEGER            L,P,Z,A
+      SUBROUTINE SETREAC(L,P,Z,A) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (C_INT), VALUE :: L,P,Z,A
       INCLUDE 'npmain.inc'
       INCLUDE 'npmath.inc'
       INTEGER      C
@@ -188,8 +190,9 @@ C
 C
 C --- Set cross section type (0 - coherent, 1 - incoherent)
 C
-      SUBROUTINE SETSIGT(T)
-      INTEGER            T
+      SUBROUTINE SETSIGT(T) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER(C_INT), VALUE :: T
       INCLUDE 'npmain.inc'
       IF (T .EQ. 0) THEN
         SigType = 0
@@ -200,16 +203,18 @@ C
 C
 C --- Set cross section unit (deafult is 1, i.e. in GeV^{-2})
 C
-      SUBROUTINE SETSIGU(U)
-      REAL*8             U
+      SUBROUTINE SETSIGU(U) BIND(C)
+      USE ISO_C_BINDING
+      REAL (C_DOUBLE), VALUE :: U
       INCLUDE 'npmain.inc'
       SigUnit = U
       END
 C
 C --- Set cross section accuracy (deafult is 0.01)
 C
-      SUBROUTINE SETSIGA(eps)
-      REAL*8             eps
+      SUBROUTINE SETSIGA(eps) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE :: eps
       INCLUDE 'npmain.inc'
       SigEps = eps
       END
@@ -442,14 +447,17 @@ C
 C     KINEXYNQ : E, x , y   --> nu, Q2
 C     KINENQXY : E, nu, Q2  --> x , y
 C
-      SUBROUTINE KINEMIN(Emin)
-      REAL*8             Emin
+      SUBROUTINE KINEMIN(Emin) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE) :: Emin
       INCLUDE 'npmain.inc'
       Emin = KinEM
       END
 
-      SUBROUTINE KINEN(E,numin,numax)
-      REAL*8           E,numin,numax
+      SUBROUTINE KINEN(E,numin,numax) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E
+      REAL(C_DOUBLE), INTENT(OUT) ::  numin,numax
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -458,8 +466,10 @@ C
       numax = KinNuX
       END
 
-      SUBROUTINE KINENQ(E,nu,Q2min,Q2max)
-      REAL*8            E,nu,Q2min,Q2max
+      SUBROUTINE KINENQ(E,nu,Q2min,Q2max) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E,nu
+      REAL(C_DOUBLE), INTENT(OUT) :: Q2min,Q2max
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -474,8 +484,10 @@ C
       Q2max = KinQ2X
       END
 
-      SUBROUTINE KINEQ(E,Q2min,Q2max)
-      REAL*8           E,Q2min,Q2max
+      SUBROUTINE KINEQ(E,Q2min,Q2max) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) ::  E
+      REAL(C_DOUBLE), INTENT(OUT) :: Q2min,Q2max
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -484,8 +496,10 @@ C
       Q2max = KinQ2X
       END
 
-      SUBROUTINE KINEQN(E,Q2,numin,numax)
-      REAL*8            E,Q2,numin,numax
+      SUBROUTINE KINEQN(E,Q2,numin,numax) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E,Q2
+      REAL(C_DOUBLE), INTENT(OUT) :: numin,numax
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -500,8 +514,10 @@ C
       numax = KinNuX
       END
 
-      SUBROUTINE KINENQT(E,nu,Q2,tmin,tmax)
-      REAL*8             E,nu,Q2,tmin,tmax
+      SUBROUTINE KINENQT(E,nu,Q2,tmin,tmax) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) ::  E,nu,Q2
+      REAL(C_DOUBLE), INTENT(OUT) :: tmin,tmax
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -524,8 +540,10 @@ C
       tmax  = KinTX
       END
 
-      SUBROUTINE KINEX(E,xmin,xmax)
-      REAL*8           E,xmin,xmax
+      SUBROUTINE KINEX(E,xmin,xmax) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E
+      REAL(C_DOUBLE), INTENT(OUT) :: xmin,xmax
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -534,8 +552,10 @@ C
       xmax = KinXX
       END
 
-      SUBROUTINE KINEXY(E,x,ymin,ymax)
-      REAL*8            E,x,ymin,ymax
+      SUBROUTINE KINEXY(E,x,ymin,ymax) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E,x
+      REAL(C_DOUBLE), INTENT(OUT) :: ymin,ymax
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -550,8 +570,10 @@ C
       ymax = KinYX
       END
 
-      SUBROUTINE KINEY(E,ymin,ymax)
-      REAL*8           E,ymin,ymax
+      SUBROUTINE KINEY(E,ymin,ymax) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E
+      REAL(C_DOUBLE), INTENT(OUT) :: ymin,ymax
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -560,8 +582,10 @@ C
       ymax = KinYX
       END
 
-      SUBROUTINE KINEYX(E,y,xmin,xmax)
-      REAL*8            E,y,xmin,xmax
+      SUBROUTINE KINEYX(E,y,xmin,xmax) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E,y
+      REAL(C_DOUBLE), INTENT(OUT) :: xmin,xmax
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -576,8 +600,10 @@ C
       xmax = KinXX
       END
 
-      SUBROUTINE KINEXYT(E,x,y,tmin,tmax)
-      REAL*8             E,x,y,tmin,tmax
+      SUBROUTINE KINEXYT(E,x,y,tmin,tmax) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E,x,y
+      REAL(C_DOUBLE), INTENT(OUT) :: tmin,tmax
       INCLUDE 'npmain.inc'
       KinE = E
       CALL SETKINE
@@ -598,15 +624,19 @@ C
       tmax = KinTX
       END
 
-      SUBROUTINE KINEXYNQ(E,x,y,nu,Q2)
-      REAL*8              E,x,y,nu,Q2
+      SUBROUTINE KINEXYNQ(E,x,y,nu,Q2) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E,x,y
+      REAL(C_DOUBLE), INTENT(OUT) :: nu,Q2
       INCLUDE 'npmain.inc'
       nu = y*E
       Q2 = 2*KinMN*nu*x
       END
 
-      SUBROUTINE KINENQXY(E,nu,Q2,x,y)
-      REAL*8              E,nu,Q2,x,y
+      SUBROUTINE KINENQXY(E,nu,Q2,x,y) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E,nu,Q2
+      REAL(C_DOUBLE), INTENT(OUT) :: x,y
       INCLUDE 'npmain.inc'
       x = Q2/(2*KinMN*nu)
       y = nu/E
@@ -614,8 +644,10 @@ C
 C
 C --- SigNA - total cross section sigma(nu A --> l pi A)
 C
-      FUNCTION SigNA(E)
-      REAL*8   SigNA,E
+      FUNCTION SigNA(E) BIND(C)
+      USE ISO_C_BINDING
+      REAL(C_DOUBLE), VALUE, INTENT(IN) :: E
+      REAL*8   SigNA
       INCLUDE 'npmain.inc'
       INCLUDE 'nppion.inc'
       INCLUDE 'npmath.fun'
