@@ -1,0 +1,7 @@
+g77 -Wall -Wimplicit \
+  -o npdemo   \
+     npdemo.f \
+     npmain.f \
+     npnucl.f \
+     nppion.f \
+     npmath.f
